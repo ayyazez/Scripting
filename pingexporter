@@ -1,2 +1,26 @@
 =>Ping exporter solution guide
 https://codeberg.org/wh0ami/ping_exporter
+######################################################3
+#Make sure to change the  exec path for proper working 
+--------------------------------------------------------------------------------------
+# Ping Exporter for Prometheus Systemd-Unit
+
+[Unit]
+Description=Ping Exporter for Prometheus
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+User=ping_exporter
+Group=ping_exporter
+WorkingDirectory=/usr/local/ping_exporter/
+ExecStart=/usr/local/bin/ping_exporter/exporter.py /usr/bin/ping_exporter/config.json #### This config path need to be changed
+Restart=always
+Environment=USER=ping_exporter HOME=/usr/local/ping_exporter/
+StandardOutput=null
+
+[Install]
+WantedBy=multi-user.target
+-------------------------------------------------------------------------------------------------
+
